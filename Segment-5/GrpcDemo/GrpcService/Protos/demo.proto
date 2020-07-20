@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "GrpcService";
+
+package demo;
+
+service Demo {
+  rpc ApplyDemoMessage (DemoRequest) returns (DemoReply);
+}
+
+message DemoRequest {
+  int32 requestId = 1;
+  repeated DemoRequestPayload payload_collection = 2;
+}
+
+message DemoReply {
+  string message = 1;
+}
+
+message DemoRequestPayload {
+  oneof int_field {
+    uint32 unsigned_int_field = 1;
+    sint32 signed_int_field = 2;
+    fixed32 fixed_int_field = 3;
+    sfixed32 signed_fixed_int_filed = 4;
+  }
+  oneof long_field {
+    uint64 unsigned_long_field = 5;
+    sint64 signed_long_field = 6;
+    fixed64 fixed_long_field = 7;
+    sfixed64 signed_fixed_long_filed = 8;
+  }
+  string payload_description = 9;
+  float payload_amount = 10;
+  double payload_double_amount = 11;
+  bool high_priority = 12;
+  bytes payload_data = 13;
+  google.protobuf.Timestamp created_time = 14;
+  google.protobuf.Duration recording_duration = 15;
+  google.protobuf.Any optional_content = 16;
+  google.protobuf.Int32Value optional_footer = 17;
+  map<string, string> projects = 18;
+  reserved 19;  
+}
